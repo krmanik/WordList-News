@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // activity_main
         editText = findViewById(R.id.edit_text);
         editText.clearFocus();
         webView = findViewById(R.id.webView);
@@ -75,28 +76,6 @@ public class MainActivity extends AppCompatActivity {
         actionHome = findViewById(R.id.action_home);
         actionMore = findViewById(R.id.action_more);
         progressBar = findViewById(R.id.progressbar);
-
-        wordDialog = new Dialog(this);
-        wordDialog.setContentView(R.layout.word_popup);
-        wordTextView = wordDialog.findViewById(R.id.popup_text_view);
-        wordTextView = wordDialog.findViewById(R.id.popup_text_view);
-        popupProgressbar = wordDialog.findViewById(R.id.popup_progressbar);
-
-        wordWebView = wordDialog.findViewById(R.id.popup_webView);
-        wordWebView.getSettings().setJavaScriptEnabled(true);
-        wordWebView.getSettings().setLoadsImagesAutomatically(true);
-        wordWebView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                popupProgressbar.setProgress(newProgress);
-                super.onProgressChanged(view, newProgress);
-
-                if (popupProgressbar.getProgress() == 100) {
-                    popupProgressbar.setVisibility(View.GONE);
-                }
-            }
-        });
-        wordWebView.setWebViewClient(new PopUpWebViewClient());
 
         actionSearch.setOnClickListener(v -> {
             search();
@@ -119,13 +98,6 @@ public class MainActivity extends AppCompatActivity {
             editText.clearFocus();
         });
 
-        Window wordWindow = wordDialog.getWindow();
-        WindowManager.LayoutParams wmLp = wordWindow.getAttributes();
-        wmLp.gravity = Gravity.TOP;
-        wmLp.width = getScreenWidth();
-        wmLp.height = (int) (getScreenHeight() * 0.7);
-        wordWindow.setAttributes(wmLp);
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.addJavascriptInterface(new JSInterface(this), "JSInterface");
@@ -140,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(WebView view, int newProgress) {
                 progressBar.setProgress(newProgress);
                 super.onProgressChanged(view, newProgress);
-
                 if (progressBar.getProgress() == 100) {
                     progressBar.setVisibility(View.GONE);
                 }
@@ -160,7 +131,67 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         webView.setWebViewClient(new AppWebViewClient());
+
+
+        // popup words with webview
+        wordDialog = new Dialog(this);
+        wordDialog.setContentView(R.layout.word_popup);
+        wordTextView = wordDialog.findViewById(R.id.popup_text_view);
+        wordTextView = wordDialog.findViewById(R.id.popup_text_view);
+        popupProgressbar = wordDialog.findViewById(R.id.popup_progressbar);
+
+        wordWebView = wordDialog.findViewById(R.id.popup_webView);
+        wordWebView.getSettings().setJavaScriptEnabled(true);
+        wordWebView.getSettings().setLoadsImagesAutomatically(true);
+        wordWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                popupProgressbar.setProgress(newProgress);
+                super.onProgressChanged(view, newProgress);
+
+                if (popupProgressbar.getProgress() == 100) {
+                    popupProgressbar.setVisibility(View.GONE);
+                }
+            }
+        });
+        wordWebView.setWebViewClient(new PopUpWebViewClient());
+
+        Window wordWindow = wordDialog.getWindow();
+        WindowManager.LayoutParams wmLp = wordWindow.getAttributes();
+        wmLp.gravity = Gravity.TOP;
+        wmLp.width = getScreenWidth();
+        wmLp.height = (int) (getScreenHeight() * 0.7);
+        wordWindow.setAttributes(wmLp);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        if (editText.isFocused()) {
+            editText.clearFocus();
+        }
+
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        webView.onPause();
+        webView.pauseTimers();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        webView.onResume();
+        webView.resumeTimers();
+    }
+
 
     private void goHomeScreen() {
     }
@@ -205,34 +236,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-        if (editText.isFocused()) {
-            editText.clearFocus();
-        }
-
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        webView.onPause();
-        webView.pauseTimers();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        webView.onResume();
-        webView.resumeTimers();
-    }
-
     public void search() {
         String text = editText.getText().toString();
         searchOrLoadUrl(text);
@@ -263,6 +266,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+
+
+    // main activity web view client
     public class AppWebViewClient extends WebViewClient {
 
         @Override
@@ -311,59 +336,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
-    public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
-
-    private class JSInterface {
-        Context mContext;
-
-        JSInterface(Context c) {
-            mContext = c;
-        }
-
-        @android.webkit.JavascriptInterface
-        public void viewMeaningPopup(String words) {
-            // settings here language
-            if (TextUtils.isEmpty(words)) {
-                return;
-            }
-
-            runOnUiThread(() -> {
-
-                // get pref set height
-
-                String url = "https://v2.glosbe.com/en/hi/" + words;
-
-
-                if (isAlpha(words)) {
-                    wordWebView.loadUrl(url);
-                }
-                wordTextView.setText(words);
-                wordDialog.show();
-
-            });
-
-
-        }
-    }
-
-    public boolean isAlpha(String name) {
-        char[] chars = name.toCharArray();
-
-        for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
+    // popup word web view client
     private class PopUpWebViewClient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -379,4 +352,32 @@ public class MainActivity extends AppCompatActivity {
             super.onPageFinished(view, url);
         }
     }
+
+    // javascript interface to call java function from android
+    private class JSInterface {
+        Context mContext;
+
+        JSInterface(Context c) {
+            mContext = c;
+        }
+
+        @android.webkit.JavascriptInterface
+        public void viewMeaningPopup(String words) {
+            // settings here language
+            if (TextUtils.isEmpty(words)) {
+                return;
+            }
+
+            runOnUiThread(() -> {
+                // get pref set height
+                String url = "https://v2.glosbe.com/en/hi/" + words;
+                if (isAlpha(words)) {
+                    wordWebView.loadUrl(url);
+                }
+                wordTextView.setText(words);
+                wordDialog.show();
+            });
+        }
+    }
+
 }

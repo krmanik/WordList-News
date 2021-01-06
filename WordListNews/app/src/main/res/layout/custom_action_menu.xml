@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_darker"
+        android:orientation="horizontal"
+        android:padding="@dimen/popup_text_view_size_padding">
+
+        <ImageButton
+            android:id="@+id/action_back"
+            android:layout_width="@dimen/popup_button_size"
+            android:layout_height="@dimen/popup_button_size"
+            android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <ImageButton
+            android:id="@+id/action_forward"
+            android:layout_width="@dimen/popup_button_size"
+            android:layout_height="@dimen/popup_button_size"
+            android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
+            android:background="@drawable/ic_baseline_arrow_forward_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <ImageButton
+            android:id="@+id/action_refresh"
+            android:layout_width="@dimen/popup_button_size"
+            android:layout_height="@dimen/popup_button_size"
+            android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
+            android:background="@drawable/ic_baseline_refresh_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground"/>
+
+        <ImageButton
+            android:id="@+id/action_bookmark"
+            android:layout_width="@dimen/popup_button_size"
+            android:layout_height="@dimen/popup_button_size"
+            android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
+            android:background="@drawable/ic_baseline_bookmark_border_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/gray_dark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/home_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@drawable/on_press">
+
+            <ImageView
+                android:layout_width="@dimen/popup_button_size"
+                android:layout_height="@dimen/popup_button_size"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_outline_home_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/popup_text_view_size_padding"
+                android:text="Home"
+                android:textColor="@color/white"
+                android:textSize="@dimen/popup_text_view_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@drawable/on_press">
+
+            <ImageView
+                android:layout_width="@dimen/popup_button_size"
+                android:layout_height="@dimen/popup_button_size"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_outline_settings_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/popup_text_view_size_padding"
+                android:text="Settings"
+                android:textColor="@color/white"
+                android:textSize="@dimen/popup_text_view_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@drawable/on_press">
+
+            <ImageView
+                android:layout_width="@dimen/popup_button_size"
+                android:layout_height="@dimen/popup_button_size"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_outline_bookmarks_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/popup_text_view_size_padding"
+                android:text="Bookmarks"
+                android:textColor="@color/white"
+                android:textSize="@dimen/popup_text_view_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="@drawable/on_press">
+
+            <ImageView
+                android:layout_width="@dimen/popup_button_size"
+                android:layout_height="@dimen/popup_button_size"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_outline_list_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/popup_text_view_size_padding"
+                android:text="Vocabulary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/popup_text_view_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/on_press"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="@dimen/popup_button_size"
+                android:layout_height="@dimen/popup_button_size"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/ic_baseline_help_outline_24" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/popup_text_view_size_padding"
+                android:text="Help"
+                android:textColor="@color/white"
+                android:textSize="@dimen/popup_text_view_size" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

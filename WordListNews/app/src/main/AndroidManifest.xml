@@ -23,6 +23,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity
+            android:name=".SettingsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="@string/action_settings"
+            android:theme="@style/Theme.WordListNews.NoActionBar">
+        </activity>
 
+        <activity
+            android:name=".BookmarksActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="@string/bookmarks"
+            android:theme="@style/Theme.WordListNews.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".VocabActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="@string/vocabulary"
+            android:theme="@style/Theme.WordListNews.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".HelpActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:label="@string/help"
+            android:theme="@style/Theme.WordListNews.NoActionBar">
+        </activity>
+    </application>
 </manifest>

@@ -7,99 +7,99 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/toolbar"
-        android:elevation="4dp"
-        android:background="@color/gray_darker"
-        app:contentInsetStart="0dp"
-        app:contentInsetLeft="0dp"
+        android:background="@color/colorPrimary"
         android:contentInsetStart="0dp"
         android:contentInsetLeft="0dp"
+        android:elevation="4dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
         app:layout_scrollFlags="scroll|enterAlways">
 
         <ImageButton
             android:id="@+id/action_home"
-            android:background="@drawable/ic_outline_home_24"
-            android:backgroundTint="@color/white"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="6dp"
             android:layout_gravity="left|center"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/ic_outline_home_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground" />
 
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="86dp">
+
+        <EditText
+            android:id="@+id/edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="40dp"
-            android:id="@+id/search_layout"
-            android:orientation="horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="36dp"
-            android:gravity="center">
+            android:layout_weight="4"
+            android:background="@drawable/edit_text_cornor"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="top|left"
+            android:hint="Search or Enter web address"
+            android:inputType="textNoSuggestions"
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="13sp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:maxLines="1"
-                android:inputType="textNoSuggestions"
-                android:gravity="top|left"
-                android:layout_marginRight="30dp"
-                android:id="@+id/edit_text"
-                android:background="@color/gray_light"
-                android:hint="Search or Enter web address"
-                android:textSize="13sp"
-                android:padding="8dp"
-                android:textColor="@color/white"
-                android:textColorHint="@android:color/white"
-                android:focusableInTouchMode="true"
-                android:clickable="true"
-                android:focusable="true"/>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="@color/gray_light"
-                android:layout_gravity="right|center">
             <ImageButton
-                android:id="@+id/action_search"
-                android:background="@drawable/ic_baseline_search_24"
-                android:backgroundTint="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/action_clear_edit_text"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="right|center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/corner"
+                android:src="@drawable/ic_baseline_close_24"
                 android:foreground="?android:attr/selectableItemBackground" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
 
         <ImageButton
             android:id="@+id/action_more"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/ic_baseline_more_vert_24"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="right|center"
-            android:layout_marginRight="6dp"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            android:layout_marginRight="12dp"
+            android:background="@drawable/ic_baseline_more_vert_24"
+            android:backgroundTint="@color/white"
+            android:foreground="?android:attr/selectableItemBackground" />
+
+        <ImageButton
+            android:id="@+id/action_activate_popup"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/ic_baseline_translate_active_24"
+            android:foreground="?android:attr/selectableItemBackground" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        style="?android:attr/progressBarStyleHorizontal"
         android:id="@+id/progressbar"
-        android:background="@color/gray_light"
-        android:visibility="gone"
-        android:progressDrawable="@drawable/custom_progress_bar"/>
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        android:visibility="gone" />
 
     <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
-        android:id="@+id/webView"/>
+        android:layout_weight="7" />
 
 </LinearLayout>

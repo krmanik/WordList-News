@@ -15,4 +15,7 @@
     <color name="gray_dark">#3d3d3d</color>
     <color name="gray_lighter">#aaaaaa</color>
     <color name="gray_light">#616161</color>
+    <color name="green_mat_500">#4caf50</color>
+    <color name="red_mat_500">#f44336</color>
+    <color name="progress_bar_color">#ff6f00</color>
 </resources>

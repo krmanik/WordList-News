@@ -24,28 +24,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.SettingsActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/action_settings"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".BookmarksActivity"
+            android:name=".activity.BookmarksActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/bookmarks"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".VocabActivity"
+            android:name=".activity.VocabActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/vocabulary"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".HelpActivity"
+            android:name=".activity.HelpActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/help"
             android:theme="@style/Theme.WordListNews.NoActionBar">

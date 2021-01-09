@@ -48,6 +48,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wordlistnews.activity.BookmarksActivity;
+import com.example.wordlistnews.activity.HelpActivity;
+import com.example.wordlistnews.activity.SettingsActivity;
+import com.example.wordlistnews.activity.VocabActivity;
+import com.example.wordlistnews.dbhelper.BookmarksDBHelper;
+import com.example.wordlistnews.dbhelper.WordDBHelper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -79,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     String homePage = "file:///android_asset/home.html";
 
     WordDBHelper wordDbHelper;
+    BookmarksDBHelper bookmarksDBHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -163,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         wordDbHelper = new WordDBHelper(this);
+        bookmarksDBHelper = new BookmarksDBHelper(this);
 
         optionMenuDialog = new Dialog(this);
         optionMenuDialog.setContentView(R.layout.custom_action_menu);
@@ -174,6 +183,14 @@ public class MainActivity extends AppCompatActivity {
         saveWordBtn = wordDialog.findViewById(R.id.save_word);
 
         showWordPopup();
+
+
+        String url = getIntent().getStringExtra("URL");
+        if (url != null) {
+            if (url.startsWith("https://")) {
+                webView.loadUrl(url);
+            }
+        }
     }
 
 
@@ -344,6 +361,19 @@ public class MainActivity extends AppCompatActivity {
         String url = webView.getUrl();
         String title = webView.getTitle();
         Log.i("Info::", url+title);
+
+        if (bookmarksDBHelper.isUrlExists(url)) {
+            Toast.makeText(this, "Url already bookmarked.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean inserted = bookmarksDBHelper.insertBookmark(title, url);
+
+        if (inserted) {
+            Toast.makeText(this, "Url bookmarked", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error occurred", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void showWordPopup() {
@@ -630,6 +660,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(mContext, "Word exists, click again to update", Toast.LENGTH_LONG).show();
                     } else {
                         boolean inserted = wordDbHelper.insertWord(word, meanings.toString());
+                        if (inserted) {
+                            Toast.makeText(mContext, "Word saved", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(mContext, "Error saving the word", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     if (saveWordClickCount >= 2) {

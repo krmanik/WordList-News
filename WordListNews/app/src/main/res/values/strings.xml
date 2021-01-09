@@ -7,4 +7,13 @@
     <string name="vocabulary">Vocabulary</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="help">Help</string>
+
+    <string-array name="lang_array">
+        <item>English</item>
+        <item>Hindi</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Russian</item>
+    </string-array>
 </resources>

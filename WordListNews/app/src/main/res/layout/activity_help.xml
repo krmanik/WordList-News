@@ -23,5 +23,91 @@
             android:layout_gravity="end"/>
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:text="Main"
+        android:textSize="@dimen/popup_text_view_size"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/main_help"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="Bookmarks"
+        android:textSize="@dimen/popup_text_view_size"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:text="@string/bookmarks_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:text="Vocabulary"
+        android:textSize="@dimen/popup_text_view_size"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:text="@string/vocabulary_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="Settings"
+        android:textSize="@dimen/popup_text_view_size"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:text="@string/settings_help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:text="Dictionary url"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="Enter url with position of words as {}\ne.g. https://v2.glosbe.com/en/en/{}"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="@string/g_translate"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/test_ads_id">
+    </com.google.android.gms.ads.AdView>
 
 </LinearLayout>

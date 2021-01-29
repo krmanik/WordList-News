@@ -8,7 +8,7 @@
         android:id="@+id/popup_top_buttons_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:padding="@dimen/popup_text_view_size_padding">
 

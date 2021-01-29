@@ -7,8 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#707cff</color>
-    <color name="colorPrimaryDark">#3250cb</color>
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryDark">#1E88E5</color>
     <color name="colorAccent">#ffa7b7</color>
     <color name="gray_darkest">#181818</color>
     <color name="gray_darker">#212121</color>
@@ -18,4 +18,5 @@
     <color name="green_mat_500">#4caf50</color>
     <color name="red_mat_500">#f44336</color>
     <color name="progress_bar_color">#ff6f00</color>
+    <color name="cornflowerblue">#6495ED</color>
 </resources>

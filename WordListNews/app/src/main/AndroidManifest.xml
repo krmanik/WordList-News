@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wordlistnews">
+    package="com.mvm.learnworddaily">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordListNews">
         <activity
-            android:name=".MainActivity"
+            android:name="com.mvm.learnworddaily.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/app_name"
             android:theme="@style/Theme.WordListNews.NoActionBar">
@@ -24,31 +25,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="com.mvm.learnworddaily.activity.SettingsActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/action_settings"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".activity.BookmarksActivity"
+            android:name="com.mvm.learnworddaily.activity.BookmarksActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/bookmarks"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".activity.VocabActivity"
+            android:name="com.mvm.learnworddaily.activity.VocabActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/vocabulary"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
 
         <activity
-            android:name=".activity.HelpActivity"
+            android:name="com.mvm.learnworddaily.activity.HelpActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/help"
             android:theme="@style/Theme.WordListNews.NoActionBar">
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/manifest_ads_id"/>
+
     </application>
 </manifest>

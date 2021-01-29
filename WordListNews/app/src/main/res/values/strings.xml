@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Word List News</string>
+    <string name="app_name">Learn Words Daily</string>
     <string name="action_settings">Settings</string>
 
     <string name="home">Home</string>
@@ -7,6 +7,13 @@
     <string name="vocabulary">Vocabulary</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="help">Help</string>
+
+    <string name="main_help">Browse anything online and view meaning of unknown words by clicking on that words.</string>
+    <string name="bookmarks_help">Save bookmarks for viewing page later.</string>
+    <string name="vocabulary_help">Save words to list for viewing later.</string>
+    <string name="settings_help">Change primary language and secondary language. Secondary language is the language you are learning.</string>
+    <string name="dict_url">Enter custom url to view meaning. For e.g. </string>
+    <string name="g_translate">https://translate.google.com/?sl=en&amp;tl=hi&amp;text={}&amp;op=translate</string>
 
     <string-array name="lang_array">
         <item>English</item>
@@ -16,4 +23,18 @@
         <item>Korean</item>
         <item>Russian</item>
     </string-array>
+
+    <string-array name="search_engine_array">
+        <item>Google</item>
+        <item>Bing</item>
+        <item>Yandex</item>
+        <item>DuckDuckGo</item>
+        <item>Baidu</item>
+        <item>Wikipedia</item>
+    </string-array>
+
+    <!--<string name="test_ads_id">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="test_ads_id">ca-app-pub-3616698903719156/5234336573</string>
+    <string name="banner_ads_id">ca-app-pub-3616698903719156/5234336573</string>
+    <string name="manifest_ads_id">ca-app-pub-3616698903719156~8052071607</string>
 </resources>

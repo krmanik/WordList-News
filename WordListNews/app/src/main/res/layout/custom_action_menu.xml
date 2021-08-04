@@ -8,7 +8,6 @@
         android:id="@+id/popup_top_buttons_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
         android:padding="@dimen/popup_text_view_size_padding">
 
@@ -18,7 +17,7 @@
             android:layout_height="@dimen/popup_button_size"
             android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
             android:background="@drawable/ic_baseline_arrow_back_24"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            android:foreground="?android:attr/selectableItemBackground" />
 
         <Button
             android:id="@+id/action_forward"
@@ -26,7 +25,7 @@
             android:layout_height="@dimen/popup_button_size"
             android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
             android:background="@drawable/ic_baseline_arrow_forward_24"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            android:foreground="?android:attr/selectableItemBackground" />
 
         <Button
             android:id="@+id/action_refresh"
@@ -34,8 +33,8 @@
             android:layout_height="@dimen/popup_button_size"
             android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
             android:background="@drawable/ic_baseline_refresh_24"
-            android:backgroundTint="@color/white"
-            android:foreground="?android:attr/selectableItemBackground"/>
+
+            android:foreground="?android:attr/selectableItemBackground" />
 
         <Button
             android:id="@+id/action_bookmark"
@@ -43,22 +42,23 @@
             android:layout_height="@dimen/popup_button_size"
             android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
             android:background="@drawable/ic_baseline_bookmark_border_24"
-            android:backgroundTint="@color/white"
-            android:foreground="?android:attr/selectableItemBackground"/>
+
+            android:foreground="?android:attr/selectableItemBackground" />
+
         <Button
             android:id="@+id/action_open_in_browser"
             android:layout_width="@dimen/popup_button_size"
             android:layout_height="@dimen/popup_button_size"
             android:layout_marginHorizontal="@dimen/popup_button_horizontal_margin"
             android:background="@drawable/ic_outline_open_in_new_24"
-            android:backgroundTint="@color/white"
-            android:foreground="?android:attr/selectableItemBackground"/>
+
+            android:foreground="?android:attr/selectableItemBackground" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/white"/>
+        android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,17 +69,16 @@
             android:id="@+id/home_button_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:focusable="true"
             android:clickable="true"
-            android:background="@drawable/on_press">
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/popup_button_size"
                 android:layout_height="@dimen/popup_button_size"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/white"
+
                 android:background="@drawable/ic_outline_home_24" />
 
             <TextView
@@ -87,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/popup_text_view_size_padding"
                 android:text="@string/home"
-                android:textColor="@color/white"
+
                 android:textSize="@dimen/popup_text_view_size" />
         </LinearLayout>
 
@@ -95,17 +94,16 @@
             android:id="@+id/setting_button_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:focusable="true"
             android:clickable="true"
-            android:background="@drawable/on_press">
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/popup_button_size"
                 android:layout_height="@dimen/popup_button_size"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/white"
+
                 android:background="@drawable/ic_outline_settings_24" />
 
             <TextView
@@ -113,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/popup_text_view_size_padding"
                 android:text="@string/settings"
-                android:textColor="@color/white"
+
                 android:textSize="@dimen/popup_text_view_size" />
         </LinearLayout>
 
@@ -121,17 +119,16 @@
             android:id="@+id/bookmark_button_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:focusable="true"
             android:clickable="true"
-            android:background="@drawable/on_press">
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/popup_button_size"
                 android:layout_height="@dimen/popup_button_size"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/white"
+
                 android:background="@drawable/ic_outline_bookmarks_24" />
 
             <TextView
@@ -139,33 +136,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/popup_text_view_size_padding"
                 android:text="@string/bookmarks"
-                android:textColor="@color/white"
-                android:textSize="@dimen/popup_text_view_size" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/vocab_button_ll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:focusable="true"
-            android:clickable="true"
-            android:background="@drawable/on_press">
-
-            <ImageView
-                android:layout_width="@dimen/popup_button_size"
-                android:layout_height="@dimen/popup_button_size"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/white"
-                android:background="@drawable/ic_outline_list_24" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/popup_text_view_size_padding"
-                android:text="@string/vocabulary"
-                android:textColor="@color/white"
                 android:textSize="@dimen/popup_text_view_size" />
         </LinearLayout>
 
@@ -173,17 +144,16 @@
             android:id="@+id/help_button_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/on_press"
             android:clickable="true"
-            android:focusable="true">
+
+            android:focusable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/popup_button_size"
                 android:layout_height="@dimen/popup_button_size"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:backgroundTint="@color/white"
                 android:background="@drawable/ic_baseline_help_outline_24" />
 
             <TextView
@@ -191,7 +161,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/popup_text_view_size_padding"
                 android:text="@string/help"
-                android:textColor="@color/white"
                 android:textSize="@dimen/popup_text_view_size" />
         </LinearLayout>
 

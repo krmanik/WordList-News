@@ -10,25 +10,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.os.Environment;
-import android.os.Handler;
-import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
-
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -46,55 +36,46 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mvm.learnworddaily.activity.BookmarksActivity;
-import com.mvm.learnworddaily.activity.HelpActivity;
-import com.mvm.learnworddaily.activity.SettingsActivity;
-import com.mvm.learnworddaily.activity.VocabActivity;
-import com.mvm.learnworddaily.dbhelper.BookmarksDBHelper;
-import com.mvm.learnworddaily.dbhelper.WordDBHelper;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.mvm.learnworddaily.activity.BookmarksActivity;
+import com.mvm.learnworddaily.activity.HelpActivity;
+import com.mvm.learnworddaily.activity.SettingsActivity;
+import com.mvm.learnworddaily.dbhelper.BookmarksDBHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Locale;
+import java.util.Objects;
 
 import static com.mvm.learnworddaily.activity.SettingsActivity.shared_prefs;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editText;
-    WebView webView, wordWebView;
-    ImageButton actionHome, actionMore, actionPopupActivate, actionClearEditText;
+    WebView webView;
+    ImageButton actionHome, actionMore, showDevTools, actionClearEditText;
     Button actionBack, actionForward, actionRefresh, actionBookmark, actionOpenInBrowser;
-    LinearLayout homeButtonLayout, settingsButtonLayout, bookmarkButtonLayout, helpButtonLayout, vocabButtonLayout, buttonTopLinearLayout;
-    ProgressBar progressBar, popupProgressbar;
-    Dialog wordDialog;
+    LinearLayout homeButtonLayout, settingsButtonLayout, bookmarkButtonLayout, helpButtonLayout;
+    ProgressBar progressBar;
     Dialog optionMenuDialog;
-    ImageButton pronounceWord, saveWordBtn;
-    TextView wordTextView;
-    boolean popupActive = true;
     boolean webpageLoading = false;
-
-    int saveWordClickCount = 0;
-
-    private TextToSpeech mTTS;
-    int mTTSResult;
 
     String homePage = "file:///android_asset/home.html";
 
-    WordDBHelper wordDbHelper;
     BookmarksDBHelper bookmarksDBHelper;
 
     SharedPreferences sharedPreferences;
@@ -132,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         actionHome = findViewById(R.id.action_home);
         actionMore = findViewById(R.id.action_more);
         actionClearEditText = findViewById(R.id.action_clear_edit_text);
-        actionPopupActivate = findViewById(R.id.action_activate_popup);
+        showDevTools = findViewById(R.id.show_dev_tools);
         progressBar = findViewById(R.id.progressbar);
 
         sharedPreferences = getSharedPreferences(shared_prefs, MODE_PRIVATE);
@@ -144,34 +125,38 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        actionHome.setOnClickListener(v -> {
-            goHomeScreen();
-        });
+        actionHome.setOnClickListener(v -> goHomeScreen());
 
-        actionMore.setOnClickListener(v -> {
-            showMorePopup();
-        });
+        actionMore.setOnClickListener(v -> showMorePopup());
 
-        actionClearEditText.setOnClickListener(v -> {
-            editText.setText("");
-        });
+        actionClearEditText.setOnClickListener(v -> editText.setText(""));
 
-        actionPopupActivate.setOnClickListener(v -> {
-            popupActive = !popupActive;
-            if (popupActive) {
-                actionPopupActivate.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_baseline_translate_active_24));
-            } else {
-                actionPopupActivate.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_baseline_translate_24));
-            }
+        showDevTools.setOnClickListener(v -> {
+
+
+            webView.loadUrl("javascript:(function() {" +
+                    "eruda.init();\n" +
+                    "\n" +
+                    "eruda._entryBtn.hide();\n" +
+                    "eruda._devTools._$el[0].style.height = \""+ 80 +"%\";\n" +
+                    "\n" +
+                    "if (eruda.get()._isShow) {\n" +
+                    "   eruda.hide();\n" +
+                    "} else {\n" +
+                    "   eruda.show();\n" +
+                    "}" +
+                    "})()");
+
+
         });
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadsImagesAutomatically(true);
-        webView.addJavascriptInterface(new JSInterface(this), "JSInterface");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE))
-            { WebView.setWebContentsDebuggingEnabled(true); }
+            if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
+                WebView.setWebContentsDebuggingEnabled(true);
+            }
         }
 
         webView.setWebChromeClient(new WebChromeClient() {
@@ -186,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webView.setDownloadListener((url, userAgent, contentDisposition, mimetype, contentLength) -> {
-            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     downloadDialog(url, userAgent, contentDisposition, mimetype);
                 } else {
@@ -200,21 +185,11 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new AppWebViewClient());
         webView.loadUrl(homePage);
 
-
-        wordDbHelper = new WordDBHelper(this);
         bookmarksDBHelper = new BookmarksDBHelper(this);
 
         optionMenuDialog = new Dialog(this);
         optionMenuDialog.setContentView(R.layout.custom_action_menu);
         actionRefresh = optionMenuDialog.findViewById(R.id.action_refresh);
-
-
-        wordDialog = new Dialog(this);
-        wordDialog.setContentView(R.layout.word_popup);
-        saveWordBtn = wordDialog.findViewById(R.id.save_word);
-
-        showWordPopup();
-
 
         String url = getIntent().getStringExtra("URL");
         if (url != null) {
@@ -264,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     private void showMorePopup() {
         Window window = optionMenuDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.TOP | Gravity.RIGHT;
+        wlp.gravity = Gravity.TOP | Gravity.END;
         window.setAttributes(wlp);
 
         actionBack = optionMenuDialog.findViewById(R.id.action_back);
@@ -275,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
         homeButtonLayout = optionMenuDialog.findViewById(R.id.home_button_ll);
         settingsButtonLayout = optionMenuDialog.findViewById(R.id.setting_button_ll);
         bookmarkButtonLayout = optionMenuDialog.findViewById(R.id.bookmark_button_ll);
-        vocabButtonLayout = optionMenuDialog.findViewById(R.id.vocab_button_ll);
         helpButtonLayout = optionMenuDialog.findViewById(R.id.help_button_ll);
 
         if (webView.canGoBack()) {
@@ -331,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
             optionMenuDialog.dismiss();
         });
 
-        actionOpenInBrowser.setOnClickListener(v ->{
+        actionOpenInBrowser.setOnClickListener(v -> {
             if (webView.getUrl().startsWith("file:///")) {
                 return;
             }
@@ -355,11 +329,6 @@ public class MainActivity extends AppCompatActivity {
             optionMenuDialog.dismiss();
         });
 
-        vocabButtonLayout.setOnClickListener(v -> {
-            viewVocabScreen();
-            optionMenuDialog.dismiss();
-        });
-
         helpButtonLayout.setOnClickListener(v -> {
             viewHelpScreen();
             optionMenuDialog.dismiss();
@@ -375,11 +344,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void viewBookmarkScreen() {
         Intent intent = new Intent(this, BookmarksActivity.class);
-        this.startActivity (intent);
-    }
-
-    public void viewVocabScreen() {
-        Intent intent = new Intent(this, VocabActivity.class);
         this.startActivity(intent);
     }
 
@@ -391,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveBookmarks() {
         String url = webView.getUrl();
         String title = webView.getTitle();
-        Log.i("Info::", url+title);
+        Log.i("Info::", url + title);
 
         if (bookmarksDBHelper.isUrlExists(url)) {
             Toast.makeText(this, "Url already bookmarked.", Toast.LENGTH_SHORT).show();
@@ -407,119 +371,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void showWordPopup() {
-        // popup words with webview
-        wordTextView = wordDialog.findViewById(R.id.popup_text_view);
-        popupProgressbar = wordDialog.findViewById(R.id.popup_progressbar);
-
-        pronounceWord = wordDialog.findViewById(R.id.pronounce_word);
-
-        pronounceWord.setOnClickListener(v -> {
-            textToSpeech();
-        });
-
-        saveWordBtn.setOnClickListener(v -> {
-            saveWordToList();
-        });
-
-        wordWebView = wordDialog.findViewById(R.id.popup_webView);
-        wordWebView.getSettings().setJavaScriptEnabled(true);
-        wordWebView.getSettings().setLoadsImagesAutomatically(true);
-        wordWebView.addJavascriptInterface(new JSInterface(this), "JSInterface");
-
-        wordWebView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                popupProgressbar.setProgress(newProgress);
-                super.onProgressChanged(view, newProgress);
-
-                if (popupProgressbar.getProgress() == 100) {
-                    popupProgressbar.setVisibility(View.GONE);
-                }
-            }
-        });
-        wordWebView.setWebViewClient(new PopUpWebViewClient());
-
-        Window wordWindow = wordDialog.getWindow();
-        WindowManager.LayoutParams wmLp = wordWindow.getAttributes();
-        wmLp.gravity = Gravity.TOP;
-        wmLp.width = getScreenWidth();
-        wmLp.height = (int) (getScreenHeight() * 0.7);
-        wordWindow.setAttributes(wmLp);
-    }
-
-    public void textToSpeech() {
-        mTTS = new TextToSpeech(this, status -> {
-            if (status == TextToSpeech.SUCCESS) {
-                // prefs lang change
-
-                String secondaryLang = sharedPreferences.getString("secondaryLang", "English");
-                Locale locale = getLocale(secondaryLang);
-                if (locale == null) {
-                    Toast.makeText(this, "Null TTS", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                mTTSResult = mTTS.setLanguage(locale);
-                if (mTTSResult == TextToSpeech.LANG_MISSING_DATA
-                        || mTTSResult == TextToSpeech.LANG_NOT_SUPPORTED) {
-                    Log.i("TTS", "Missing");
-                }
-
-                String word = wordTextView.getText().toString();
-                if (!mTTS.isSpeaking()) {
-                    mTTS.speak(word, TextToSpeech.QUEUE_FLUSH, null);
-                }
-
-
-            } else {
-                Log.i("TTS", "Init fail");
-            }
-        });
-    }
-
-    public Locale getLocale(String lang) {
-        Locale locale;
-        switch (lang) {
-            case "English":
-                locale = Locale.US; 
-                break;
-
-            case "Hindi":
-                locale = new Locale("hi","IN");
-                break;
-
-            case "Russian":
-                locale = new Locale("ru","RU");
-                break;
-
-            case "Korean":
-                locale = Locale.KOREAN;
-                break;
-
-            case "Japanese":
-                locale =  Locale.JAPANESE;
-                break;
-
-            case "Chinese":
-                locale = Locale.CHINESE;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + lang);
-        }
-
-        return locale;
-    }
-
-    public void saveWordToList() {
-        wordWebView.loadUrl("javascript:(getMeaning())");
-    }
-
     private void downloadDialog(String url, String userAgent, String contentDisposition, String mimetype) {
         String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Download")
-                .setMessage("Do you want to save "+fileName)
+                .setMessage("Do you want to save " + fileName)
                 .setCancelable(true)
                 .setPositiveButton("Yes", (dialog, which) -> {
                     DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
@@ -535,9 +392,7 @@ public class MainActivity extends AppCompatActivity {
                     downloadManager.enqueue(request);
 
                 })
-                .setNegativeButton("No", (dialog, which) -> {
-                    dialog.cancel();
-                });
+                .setNegativeButton("No", (dialog, which) -> dialog.cancel());
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
@@ -566,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
 
             String search = sharedPreferences.getString("search", "Google");
             String searchEngine = getSearchEngine(search);
-            webView.loadUrl(searchEngine+text);
+            webView.loadUrl(searchEngine + text);
         }
         hideKeyboard();
     }
@@ -578,33 +433,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isAlpha(String name) {
-        char[] chars = name.toCharArray();
-
-        for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public static int getScreenWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-
-    public static int getScreenHeight() {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
-    }
-
 
     // main activity web view client
     public class AppWebViewClient extends WebViewClient {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            wordDialog.dismiss();
             editText.setText(url);
             editText.clearFocus();
 
@@ -618,183 +452,25 @@ public class MainActivity extends AppCompatActivity {
                 url = "";
             }
 
+            injectJS("VM.js");
+
             progressBar.setVisibility(View.VISIBLE);
             editText.setText(url);
             editText.clearFocus();
-
             webpageLoading = true;
-            actionRefresh.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baseline_close_white_24));
-
-            wordDialog.dismiss();
-
             super.onPageStarted(view, url, favicon);
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            String jsCode = readJsFromAssets("popup1.js");
-
-            if (!url.startsWith("file:///android_asset")) {
-                webView.loadUrl("javascript:(function(){ " + jsCode + " })();");
-            }
-
             webpageLoading = false;
             actionRefresh.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_baseline_refresh_24));
-
             super.onPageFinished(view, url);
         }
     }
-
-    // popup word web view client
-    private class PopUpWebViewClient extends WebViewClient {
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            popupProgressbar.setVisibility(View.VISIBLE);
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            String jsCode = readJsFromAssets("addCodeToPopup.js");
-
-            if (!url.startsWith("file:///android_asset")) {
-                wordWebView.loadUrl("javascript:(function(){ " + jsCode + " })();");
-            }
-
-            saveWordBtn.setVisibility(View.VISIBLE);
-            saveWordClickCount = 0;
-
-
-            int scroll = sharedPreferences.getInt("scroll", 0);
-
-            Handler lHandler = new Handler();
-            lHandler.postDelayed(() -> wordWebView.scrollTo(0, scroll), 200);
-            super.onPageFinished(view, url);
-        }
-    }
-
-    // javascript interface to call java function from android
-    private class JSInterface {
-        Context mContext;
-
-        JSInterface(Context c) {
-            mContext = c;
-        }
-
-        @JavascriptInterface
-        public void viewMeaningPopup(String words) {
-            // settings here language
-            if (TextUtils.isEmpty(words)) {
-                return;
-            }
-
-            if (popupActive) {
-                runOnUiThread(() -> {
-                    // get pref set height, lang
-
-                    String url = sharedPreferences.getString("url", "https://v2.glosbe.com/en/en/{}");
-                    url = url.replace("{}", words);
-
-                    if (isAlpha(words)) {
-                        wordWebView.loadUrl(url);
-                        wordTextView.setText(words);
-                    }
-                    wordDialog.show();
-                });
-            }
-        }
-
-        // interface for popup word web view
-        @JavascriptInterface
-        public void getWordData(String jsonData) {
-
-            saveWordClickCount += 1;
-            String url = sharedPreferences.getString("url", "https://v2.glosbe.com/en/en/{}");
-            if (url.startsWith("https://v2.glosbe.com")) {
-                runOnUiThread(() -> {
-
-                    try {
-                        JSONArray jsonArray = new JSONArray(jsonData);
-
-                        String word = wordTextView.getText().toString();
-                        StringBuilder meanings = new StringBuilder();
-
-                        if (jsonArray.length() == 0) {
-                            Toast.makeText(mContext, "Meanings data empty", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        for (int i=0; i < jsonArray.length(); i++) {
-                            meanings.append(jsonArray.get(i).toString());
-
-                            if (i != jsonArray.length()-1) {
-                                meanings.append(", ");
-                            }
-                        }
-
-                        // when page loaded
-                        Log.i("Words::meanings", word+"::"+meanings.toString());
-
-                        if (wordDbHelper.isWordExists(word)) {
-                            Toast.makeText(mContext, "Word exists, click again to update", Toast.LENGTH_LONG).show();
-                        } else {
-                            boolean inserted = wordDbHelper.insertWord(word, meanings.toString());
-                            if (inserted) {
-                                Toast.makeText(mContext, "Word saved", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(mContext, "Error saving the word", Toast.LENGTH_LONG).show();
-                            }
-                        }
-
-                        if (saveWordClickCount >= 2) {
-                            boolean updated = wordDbHelper.updateWord(word, meanings.toString());
-                            Toast.makeText(mContext, "Word updated", Toast.LENGTH_LONG).show();
-                            saveWordClickCount = 0;
-                        }
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                });
-            } else {
-                Toast.makeText(mContext, "Currently only for https://v2.glosbe.com supported", Toast.LENGTH_LONG).show();
-            }
-        }
-
-    }
-
-    private String readJsFromAssets(String fileName) {
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader reader = null;
-        try {
-            String jsFile = "js/" + fileName;
-            reader = new BufferedReader(new InputStreamReader(getAssets().open(jsFile)));
-            String mLine;
-            while ((mLine = reader.readLine()) != null) {
-                stringBuilder.append(mLine);
-            }
-        } catch (IOException e) {
-            Log.e("Error::onPageFinished", e.getLocalizedMessage());
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    Log.e("Error::onPageFinished", e.getLocalizedMessage());
-                }
-            }
-        }
-        if (stringBuilder == null) {
-            stringBuilder.append("");
-        }
-        return stringBuilder.toString();
-    }
-
 
     public String getSearchEngine(String search) {
-        String url = "";
+        String url;
         switch (search) {
             case "Baidu":
                 url = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=";
@@ -823,4 +499,23 @@ public class MainActivity extends AppCompatActivity {
         return url;
     }
 
+    private void injectJS(String jsFile) {
+        try {
+            InputStream inputStream = getAssets().open("js/" + jsFile);
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            inputStream.close();
+            String encoded = Base64.encodeToString(buffer, Base64.NO_WRAP);
+            webView.loadUrl("javascript:(function() {" +
+                    "globalThis.isShownDevTools = false;" +
+                    "var parent = document.getElementsByTagName('head').item(0);" +
+                    "var script = document.createElement('script');" +
+                    "script.type = 'text/javascript';" +
+                    "script.innerHTML = window.atob('" + encoded + "');" +
+                    "parent.appendChild(script)" +
+                    "})()");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

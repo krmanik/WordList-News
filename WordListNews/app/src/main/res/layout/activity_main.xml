@@ -78,12 +78,13 @@
             android:foreground="?android:attr/selectableItemBackground" />
 
         <ImageButton
-            android:id="@+id/action_activate_popup"
+            android:id="@+id/show_dev_tools"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="right|center"
             android:layout_marginRight="12dp"
-            android:background="@drawable/ic_baseline_translate_active_24"
+            android:background="@drawable/ic_round_web_24"
+            android:backgroundTint="@color/white"
             android:foreground="?android:attr/selectableItemBackground" />
 
     </androidx.appcompat.widget.Toolbar>

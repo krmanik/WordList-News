@@ -1,5 +1,4 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="popup_text_view_size">20sp</dimen>
     <dimen name="popup_text_view_size_padding">12dp</dimen>
     <dimen name="popup_button_size">26dp</dimen>

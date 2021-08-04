@@ -39,13 +39,6 @@
         </activity>
 
         <activity
-            android:name="com.mvm.learnworddaily.activity.VocabActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/vocabulary"
-            android:theme="@style/Theme.WordListNews.NoActionBar">
-        </activity>
-
-        <activity
             android:name="com.mvm.learnworddaily.activity.HelpActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:label="@string/help"

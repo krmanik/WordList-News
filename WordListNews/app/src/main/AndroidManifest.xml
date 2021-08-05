@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mvm.learnworddaily">
+    package="io.github.orbitgame">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordListNews">
         <activity
-            android:name="com.mvm.learnworddaily.MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:name="io.github.orbitgame.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.WordListNews.NoActionBar">
+            android:theme="@style/Theme.WordListNews.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,29 +25,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mvm.learnworddaily.activity.SettingsActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:name="io.github.orbitgame.activity.SettingsActivity"
             android:label="@string/action_settings"
-            android:theme="@style/Theme.WordListNews.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.WordListNews.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity
-            android:name="com.mvm.learnworddaily.activity.BookmarksActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
+            android:name="io.github.orbitgame.activity.BookmarksActivity"
             android:label="@string/bookmarks"
-            android:theme="@style/Theme.WordListNews.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.WordListNews.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity
-            android:name="com.mvm.learnworddaily.activity.HelpActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/help"
-            android:theme="@style/Theme.WordListNews.NoActionBar">
-        </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/manifest_ads_id"/>
-
+            android:name="io.github.orbitgame.activity.InfoActivity"
+            android:label="@string/info"
+            android:theme="@style/Theme.WordListNews.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
     </application>
 </manifest>

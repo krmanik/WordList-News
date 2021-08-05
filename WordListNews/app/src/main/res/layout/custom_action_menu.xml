@@ -145,7 +145,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-
             android:focusable="true"
             android:orientation="horizontal">
 
@@ -154,13 +153,13 @@
                 android:layout_height="@dimen/popup_button_size"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_baseline_help_outline_24" />
+                android:background="@drawable/ic_outline_info_24" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/popup_text_view_size_padding"
-                android:text="@string/help"
+                android:text="@string/info"
                 android:textSize="@dimen/popup_text_view_size" />
         </LinearLayout>
 

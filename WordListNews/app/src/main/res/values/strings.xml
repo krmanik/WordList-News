@@ -1,13 +1,11 @@
 <resources>
-    <string name="app_name">Learn Words Daily</string>
+    <string name="app_name">Browser with Dev Tools</string>
     <string name="action_settings">Settings</string>
 
     <string name="home">Home</string>
     <string name="settings">Settings</string>
     <string name="bookmarks">Bookmarks</string>
-    <string name="help">Help</string>
-
-    <string name="bookmarks_help">Save bookmarks for viewing page later.</string>
+    <string name="info">Info</string>
 
     <string-array name="lang_array">
         <item>English</item>
@@ -27,7 +25,23 @@
         <item>Wikipedia</item>
     </string-array>
 
-    <!--<string name="test_ads_id">ca-app-pub-3940256099942544/6300978111</string>-->
-    <string name="test_ads_id">ca-app-pub-3616698903719156/5234336573</string>
-    <string name="manifest_ads_id">ca-app-pub-3616698903719156~8052071607</string>
+    <string-array name="dev_tools_theme_array">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Material Oceanic</item>
+        <item>Material Darker</item>
+        <item>Material Lighter</item>
+        <item>Material Palenight</item>
+        <item>Material Deep Ocean</item>
+        <item>Monokai Pro</item>
+        <item>Dracula</item>
+        <item>Arc Dark</item>
+        <item>Atom One Dark</item>
+        <item>Atom One Light</item>
+        <item>Solarized Dark</item>
+        <item>Solarized Light</item>
+        <item>Github</item>
+        <item>Night Owl</item>
+        <item>Light Owl</item>
+    </string-array>
 </resources>

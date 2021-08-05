@@ -120,6 +120,34 @@
             android:padding="20dp" />
     </RelativeLayout>
 
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="18sp"
+            android:text="Transparency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"/>
+
+        <EditText
+            android:text="1"
+            android:id="@+id/dev_tools_transparency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="20dp" />
+    </RelativeLayout>
+
+
     <LinearLayout
         android:layout_gravity="center"
         android:orientation="horizontal"
@@ -138,15 +166,4 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
-
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/test_ads_id">
-    </com.google.android.gms.ads.AdView>
-
 </LinearLayout>
